@@ -1,0 +1,372 @@
+/* Nav bar stylesheet*/
+.navfont{
+  font-family: 'Alfa Slab One', cursive;
+  font-size: 28px;
+  color: hsl(37,80%,70%);
+}
+
+.myborder{
+  border: thin solid black;
+}
+
+.mainbk{
+  background-color: hsl(182,35%,28%);
+}
+
+.linkpad{
+  padding-right: 10px;
+}
+
+.navImages{
+  margin-left: -8px;
+  margin-bottom: 4px;
+}
+
+.usernamemargin{
+  margin-top: 7px;
+}
+
+.mainfont{
+  font-family: 'Alfa Slab One', cursive;
+  color: hsl(37,80%,70%);
+}
+
+.topmargin{
+  margin-top: 30px;
+}
+
+.leftmargin{
+  background-color: hsl(0,0%,95%);
+  padding-top: 65px;
+  padding-bottom: 60px;
+}
+
+.textmargin{
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+/*index page*/
+.indexImage{
+  width: 100%;
+}
+
+.containered{
+  position: relative;
+  text-align: center;
+  width: 100%;
+  margin-left: 0;
+
+}
+
+.imageTextTop{
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Alfa Slab One', cursive;
+  font-size: 20px;
+  color: hsl(37,80%,70%);
+  text-shadow: 2px 2px black;
+}
+
+.imageTextMiddle{
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Alfa Slab One', cursive;
+  font-size: 20px;
+  color: hsl(37,80%,70%);
+  text-shadow: 2px 2px black;
+}
+
+.imageTextBottom{
+  position: absolute;
+  top: 54%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Alfa Slab One', cursive;
+  font-size: 20px;
+  color: hsl(37,80%,70%);
+  text-shadow: 2px 2px black;
+}
+
+.indexbk{
+  background-color: hsl(0,0%,95%);
+}
+
+.indexText{
+  text-align: center;
+}
+
+.indextag{
+  text-align: center;
+  margin: 0 auto;
+}
+
+.indexStrap{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin: 0 auto;
+  text-align: center;
+  font-family: 'Alfa Slab One', cursive;
+  color: hsl(37,80%,70%);
+}
+
+.usrNavImage{
+  margin-left: 8px;
+}
+
+.nav-item{
+   text-align: right;
+}
+
+.welcomeStrap{
+  position: absolute;
+  top: 30%;
+  left: 20%;
+  transform: translate(-5%, -85%);
+  font-family: 'Alfa Slab One', cursive;
+  font-size: 20px;
+  color: hsl(37,80%,70%);
+  text-shadow: 2px 2px black;
+}
+
+.myBottomMargin{
+  margin-bottom: 20px;
+  color: black;
+}
+
+.sportText{
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Alfa Slab One', cursive;
+  font-size: 200%;
+  color: hsl(37,80%,70%);
+  text-shadow: 2px 2px black;
+}
+
+.gameText{
+  position: absolute;
+  top: 23%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Alfa Slab One', cursive;
+  font-size: 200%;
+  color: hsl(37,80%,70%);
+  text-shadow: 2px 2px black;
+}
+
+/*Incorrect Login page*/
+.warning{
+  font-family: 'Alfa Slab One', cursive;
+  font-size: 110%;
+}
+
+/*Signup page*/
+.signupLayout{
+  padding-top: 5%;
+  margin: 0 auto;
+  width: 90%;
+}
+
+.signupBttmBtn{
+  width: 60%;
+}
+
+.signupHR{
+  width: 30%;
+}
+
+.signupPad{
+  margin-top: 10px;
+}
+
+.eyeSize{
+  width: 15%;
+}
+
+.boxSize{
+  width: 100%;
+}
+
+.centeredText{
+  text-align: center;
+}
+
+.buttonpos{
+  margin: 0 auto;
+  text-align: center;
+}
+
+.avatarTopMargin{
+  margin-top: 7px;
+}
+
+.eyeBorder{
+  border: thin solid lightgray;
+  border-radius: 3px;
+  width: 10%;
+  padding-left: 5%;
+  padding-right: 12%;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+/* Game page */
+.gamePic{
+  width: 100%;
+  background-color: black;
+}
+
+.tableTop{
+  height: 100px;
+  vertical-align: top;
+}
+
+.venueTop{
+  height: 50px;
+  vertical-align: top;
+}
+
+.marginleft{
+  margin-left: 20px;
+}
+
+#map {
+  height: 300px;
+  width: 91%;
+  margin: 0 auto;
+
+}
+
+/* footer */
+#footerText{
+  margin: 0 auto;
+  text-align: center;
+}
+
+
+
+
+
+@media only screen and (min-width: 768px) {
+  /* login modal */
+  .formcontent{
+    max-width: 30%;
+    margin: 0 auto;
+    background-color: white;
+  }
+
+  .bkbody{
+    background-color: white;
+    padding-bottom: 80%;
+  }
+
+    /*index page */
+
+  .indexImage{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .containered{
+    position: relative;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+  }
+
+  .imageTextTop{
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Alfa Slab One', cursive;
+    font-size: 40px;
+    color: hsl(37,80%,70%);
+    text-shadow: 2px 2px black;
+  }
+
+  .imageTextMiddle{
+    position: absolute;
+    top: 36%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Alfa Slab One', cursive;
+    font-size: 40px;
+    color: hsl(37,80%,70%);
+    text-shadow: 2px 2px black;
+  }
+
+  .imageTextBottom{
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Alfa Slab One', cursive;
+    font-size: 40px;
+    color: hsl(37,80%,70%);
+    text-shadow: 2px 2px black;
+  }
+
+  .welcomeStrap{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    font-family: 'Alfa Slab One', cursive;
+    font-size: 40px;
+    color: hsl(37,80%,70%);
+    text-shadow: 2px 2px black;
+  }
+
+  .imageLimit{
+    max-height: 300px;
+  }
+
+
+
+
+  /*Incorrect Login page */
+  .topMargin{
+    margin-top: 5px;
+  }
+
+  /*Signup page*/
+  .signupLayout{
+    padding-top: 5%;
+    margin: 0 auto;
+    font-size: 100%;
+    width: 60%;
+  }
+
+
+  .topPush{
+    padding-top: 13%;
+  }
+
+  .bottomPush{
+    margin-bottom: 40px;
+  }
+
+  .eyeSize{
+    width: 5%;
+  }
+
+  .boxSize{
+    width: 100%;
+  }
+  /* game page */
+  #map {
+    height: 300px;
+    width: 200px;
+    margin: 0 auto;
+
+  }
+
+
+}
