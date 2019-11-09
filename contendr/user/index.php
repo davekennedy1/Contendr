@@ -142,19 +142,19 @@ $result = $conn->query($read);
         if($matchStatus == 6){
           echo"
               <div class='col-sm-6'>
-
-                <div class='card myBottomMargin'>
-                  <img src='$sportImage' class='card-img-top imageLimit' alt='sport image'>
-                  <div class='sportText'>$sportName</div>
-                  <div class='card-body'>
-                    <p class='card-text'>
-                       <strong>Venue: </strong>$venueName</br>
-                       <strong>City/Town: </strong>$cityName</br>
-                       <strong>Date/Time: </strong>$match
-                    </p>
+                <a href='game.php?gameid=$matchID'>
+                  <div class='card myBottomMargin'>
+                    <img src='$sportImage' class='card-img-top imageLimit' alt='sport image'>
+                    <div class='sportText'>$sportName</div>
+                    <div class='card-body'>
+                      <p class='card-text'>
+                         <strong>Venue: </strong>$venueName</br>
+                         <strong>City/Town: </strong>$cityName</br>
+                         <strong>Date/Time: </strong>$match
+                      </p>
+                    </div>
                   </div>
-                </div>
-
+                </a>
               </div>
               </br>
 
