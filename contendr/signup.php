@@ -52,15 +52,15 @@
                       Number, Upper and Lower Case characters required. Min length - 8.
                     </div>
                   </div>
-
-                  <div class='form-group col mb-3'>
-                    <label for='validationDOB'>DOB:</label>
-                    <input type='date' class='form-control' name='dob' id='validationDOB' placeholder='DOB' required>
-                      <div class='invalid-feedback'>
-                        Required.
-                      </div>
-                  </div>
-
+                  ";
+                  // <div class='form-group col mb-3'>
+                  //   <label for='validationDOB'>DOB:</label>
+                  //   <input type='date' class='form-control' name='dob' id='validationDOB' placeholder='DOB' required>
+                  //     <div class='invalid-feedback'>
+                  //       Required.
+                  //     </div>
+                  // </div>
+                  echo"
                   <div class='form-group col mb-3'>
                     <label id='email' for='validationEmail'>Email:</label>
                     <input type='email' class='form-control' id='validationEmail' name='email' placeholder='Email' required>
@@ -69,13 +69,13 @@
                       Required.
                     </div>
                   </div>
-
-                  <div class='form-group col mb-3'>
-                    <label for='Phone'>Tel:</label>
-                    <input type='text' class='form-control' name='phoneNumber' id='Phone' placeholder='Tel:'>
-                    <small id='phoneHelp' class='form-text text-muted'>Optional</small>
-                  </div>
-
+                  ";
+                  // <div class='form-group col mb-3'>
+                  //   <label for='Phone'>Tel:</label>
+                  //   <input type='text' class='form-control' name='phoneNumber' id='Phone' placeholder='Tel:'>
+                  //   <small id='phoneHelp' class='form-text text-muted'>Optional</small>
+                  // </div>
+                  echo"
                   <div class='form-group col mb-3'>
                     <button id='button' class='btn btn-primary' type='submit'>Submit form</button>
                   </div>
