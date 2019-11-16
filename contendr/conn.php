@@ -4,9 +4,9 @@
   //username
   $username = "root";
   //password
-  $password = "root";
+  $password = "1Qwertyu";
   //dbname
-  $db = "contendr";
+  $db = "Contendr";
 
   //mysqli api
   $conn = new mysqli($host, $username, $password, $db);

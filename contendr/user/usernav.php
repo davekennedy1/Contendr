@@ -1,5 +1,4 @@
 <?php
-session_start();
 if(!isset($_SESSION['13072064_contendrUnom'])){
   header('Location: ../index.php');
 }
@@ -58,16 +57,22 @@ if(!$avatarResult){
 </button>
 
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn my-2 my-sm-0 btn-outline-light" type="submit">Search</button>
+  </form>
     <ul class="navbar-nav ml-auto">
 
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo "$sessionUser"; echo"<img class='usrNavImage' src='../$avatarImage' width='25'> ";?></a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="signout.php">Logout</a>
-        </div>
+
+
       </li>
     </ul>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <a class="dropdown-item" href="#">Action</a>
+      <a class="dropdown-item" href="signout.php">Logout</a>
+    </div>
   </div>
 
 

@@ -19,7 +19,7 @@ include("../conn.php");
 
     $read = "SELECT
              Sps_Match.MatchID, Sps_Match.SportID, Sps_Match.MatchImage, Sps_Match.MatchDateTime, Sps_Match.MatchName, Sps_Match.Cost, Sps_Match.MaxPlayers, Sps_Match.MinPlayers, Sps_Match.MatchEndTime, Sps_Venue.VenueName, Sps_Venue.Pitch, Sps_Venue.Room, Sps_Venue.Court, Sps_Venue.TableBooked, Sps_Venue.ParkingDescription, Sps_SportType.SportTypeName, Sps_Sport.SportName, Sps_Sport.SportDescription, Sps_ProficiencyLevel.ProficiencyLevelName, Sps_ProficiencyLevel.ProficiencyLevelDescription,
-             Sps_MatchStatus.MatchStatusName, Sps_RecurringMatch.RecurringMatchDescription,
+             Sps_MatchStatus.MatchStatusID, Sps_MatchStatus.MatchStatusName, Sps_RecurringMatch.RecurringMatchDescription,
              Sps_User.Name, Sps_User.haveAvatar, Sps_User.AvatarLocation, Sps_CityOrTown.CityOrTownName,
              Sps_Address.Longitude, Sps_Address.Latitude, Sps_Address.NumberOrName, Sps_Address.AddressLine1,
              Sps_Address.AddressLine2, Sps_Address.AddressLine3, Sps_Address.PostcodeZip
@@ -49,22 +49,19 @@ include("../conn.php");
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script> <!--Probably don't need this-->
+<!--  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script> Probably don't need this-->
 
   <title>Contendr</title>
 </head>
 <body class='indexbk'>
   <?php
     include('usernav.php');
-  ?>
+  ?>;
 
   <?php
-    echo "
-    <div class='container'>
-    ";
-  ?>
-
-  <?php
+  echo "
+  <div class='container'>
+  ";
   if(!$currentPlayersResult){
     echo $conn->error;
   }else{
@@ -203,6 +200,7 @@ include("../conn.php");
                     <td>$startTime - $endTime</td>
                   </tr>
                 </table>
+
             </div>
             <div class='col-sm-6'>
               <img class='gamePic' src='$sportImage' alt='sport image'>
@@ -240,7 +238,7 @@ include("../conn.php");
               </table>
             </div>
             <div class='col-sm-6' id='map'>
-              <script id='coords' src='../js/map.js' data-long='$long' data-lat='$lat'></script>
+             <script id='coords' src='../js/map.js' data-long='$long' data-lat='$lat'></script>
             </div>
           </div>
           ";
@@ -270,6 +268,5 @@ include("../conn.php");
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="../js/game.js"></script>
 </body>
 </html>

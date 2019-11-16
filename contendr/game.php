@@ -4,7 +4,7 @@
     $matchID = $conn->real_escape_string(trim($_GET['gameid']));
     $read = "SELECT
              Sps_Match.MatchID, Sps_Match.SportID, Sps_Match.MatchImage, Sps_Match.MatchDateTime, Sps_Match.MatchName, Sps_Match.Cost, Sps_Match.MaxPlayers, Sps_Match.MinPlayers, Sps_Match.MatchEndTime, Sps_Venue.VenueName, Sps_Venue.Pitch, Sps_Venue.Room, Sps_Venue.Court, Sps_Venue.TableBooked, Sps_Venue.ParkingDescription, Sps_SportType.SportTypeName, Sps_Sport.SportName, Sps_Sport.SportDescription, Sps_ProficiencyLevel.ProficiencyLevelName, Sps_ProficiencyLevel.ProficiencyLevelDescription,
-             Sps_MatchStatus.MatchStatusName, Sps_RecurringMatch.RecurringMatchDescription,
+             Sps_MatchStatus.MatchStatusID, Sps_MatchStatus.MatchStatusName, Sps_RecurringMatch.RecurringMatchDescription,
              Sps_User.Name, Sps_User.haveAvatar, Sps_User.AvatarLocation, Sps_CityOrTown.CityOrTownName,
              Sps_Address.Longitude, Sps_Address.Latitude, Sps_Address.NumberOrName, Sps_Address.AddressLine1,
              Sps_Address.AddressLine2, Sps_Address.AddressLine3, Sps_Address.PostcodeZip
@@ -46,13 +46,6 @@
   <?php
     echo "
     <div class='container'>
-
-
-
-
-
-
-
     ";
   ?>
 
