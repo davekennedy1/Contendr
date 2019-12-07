@@ -9,13 +9,21 @@ include("../conn.php");
 
     $matchID = $conn->real_escape_string(trim($_GET['gameid']));
 
-    $matchRead = "SELECT Sps_PlayersMatch.UserID FROM Sps_PlayersMatch INNER JOIN Sps_User
+    $playerRead = "SELECT @registeredPlayer := IF((SELECT Sps_PlayersMatch.UserID FROM Sps_PlayersMatch INNER JOIN Sps_User
                   On Sps_PlayersMatch.UserID = Sps_User.UserID
                   WHERE Sps_PlayersMatch.MatchID = $matchID
-                  AND Sps_User.UserID = $uid";
+                  AND Sps_User.UserID = $uid) = $uid, 1, 0) AS RegisteredPlayer";  /* Return 1 if player in this game else 0*/
 
-    $currentPlayersResult = $conn->query($matchRead);
-    $playing = 0;
+    $slotRead = "SELECT @availableSlot := IF((SELECT COUNT(Sps_User.UserID) FROM Sps_User INNER JOIN Sps_PlayersMatch
+                ON Sps_User.UserID = Sps_PlayersMatch.UserID
+                INNER JOIN Sps_Match
+                On Sps_PlayersMatch.MatchID = Sps_Match.MatchID
+                WHERE Sps_Match.MatchID = $matchID) < (SELECT Sps_Match.MaxPlayers FROM Sps_Match WHERE Sps_Match.MatchID = $matchID), 1, 0) AS AvailableSlot";
+
+    $currentPlayersResult = $conn->query($playerRead);
+    $availableSlotResult = $conn->query($slotRead);
+    $regPlayer = 0;
+    $availableSlot = 0;
 
     $read = "SELECT
              Sps_Match.MatchID, Sps_Match.SportID, Sps_Match.MatchImage, Sps_Match.MatchDateTime, Sps_Match.MatchName, Sps_Match.Cost, Sps_Match.MaxPlayers, Sps_Match.MinPlayers, Sps_Match.MatchEndTime, Sps_Venue.VenueName, Sps_Venue.Pitch, Sps_Venue.Room, Sps_Venue.Court, Sps_Venue.TableBooked, Sps_Venue.ParkingDescription, Sps_SportType.SportTypeName, Sps_Sport.SportName, Sps_Sport.SportDescription, Sps_ProficiencyLevel.ProficiencyLevelName, Sps_ProficiencyLevel.ProficiencyLevelDescription,
@@ -56,7 +64,7 @@ include("../conn.php");
 <body class='indexbk'>
   <?php
     include('usernav.php');
-  ?>;
+  ?>
 
   <?php
   echo "
@@ -66,15 +74,18 @@ include("../conn.php");
     echo $conn->error;
   }else{
       while ($row = $currentPlayersResult->fetch_assoc()) {
-        $playerID = $row['UserID'];
-        if($playerID == $uid){
-          $playing = 1;
-        }else{
-          $playing = 0;
+        $regPlayer= $row['RegisteredPlayer'];
+      }
+
+
+    if(!$availableSlotResult){
+      echo $conn->error;
+    }else{
+        while ($row = $availableSlotResult->fetch_assoc()) {
+          $availableSlot= $row['AvailableSlot'];
         }
 
-      }
-    }
+
 
     if(!$matchResult){
       echo $conn->error;
@@ -172,11 +183,15 @@ include("../conn.php");
             </div>
             <div class='col'>
             ";
-            if($playing == 0){
+            if($regPlayer == 0 && $availableSlot == 1){
             echo"
-              <button type='button' class='btn btn-sm btn-info' id='js-joinButton'>Join Game</button>
+              <button type='button' class='btn btn-sm btn-info' id='js-joinButton' data-toggle='modal' data-target='#joinGameModal'>Join Game</button>
               ";
-            }else{
+            }else if($regPlayer == 0 && $availableSlot == 0){
+              echo"
+                <button type='button' class='btn btn-sm btn-danger' disabled>Game Full</button>
+              ";
+            }else if($regPlayer == 1){
               echo"
                 <button type='button' class='btn btn-sm btn-warning' id='js-leaveButton'>Leave Game</button>
                 ";
@@ -184,6 +199,28 @@ include("../conn.php");
               echo"
             </div>
           </div>
+
+          <!-- Modal -->
+          <div class='modal fade' id='joinGameModal' tabindex='-1' role='dialog' aria-labelledby='joinGameModalLabel' aria-hidden='true'>
+              <div class='modal-dialog modal-dialog-centered' role='document'>
+                <div class='modal-content'>
+                  <div class='modal-header mainbk'>
+                    <h5 class='modal-title mainfont' id=' joinGameModalLabel'>Commit to Game?</h5>
+                    <button type='button' class='close mainfont' data-dismiss='modal' aria-label='Close'>
+                      <span aria-hidden='true'>&times;</span>
+                    </button>
+                  </div>
+                  <div class='modal-body'>
+                    We know circumstances change and things can come up but you're ready to commit to this game right?
+                  </div>
+                  <div class='modal-footer'>
+                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>No Thanks</button>
+                    <button type='button' class='btn btn-info'>Join Game</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class='row'>
               <div class='col-sm-6'>
                 <table>
@@ -242,21 +279,12 @@ include("../conn.php");
             </div>
           </div>
           ";
-
-
-
       }
-
+      }
+      }
     }
-
-
   ?>
-
-
     </div>
-
-
-
     <?php
       include('../footer.php');
     ?>

@@ -3,8 +3,8 @@
   include('conn.php');
   $name = $conn->real_escape_string(trim($_POST['name']));
   $email = $conn->real_escape_string(trim($_POST['email']));
-  $phone = $conn->real_escape_string(trim($_POST['phoneNumber']));
-  $dob = $conn->real_escape_string(trim($_POST['dob']));
+//  $phone = $conn->real_escape_string(trim($_POST['phoneNumber']));
+//  $dob = $conn->real_escape_string(trim($_POST['dob']));
   $userpass = $conn->real_escape_string(trim($_POST['pass']));
   $avatar = "avatarImages/default_avatar.png";
   $ruleInfringement = 0;
@@ -24,7 +24,7 @@
   }
 
   //empty field validation
-  if(empty($name) || empty($email) || empty($dob) || empty($userpass) || $ruleInfringement === 1){
+  if(empty($name) || empty($email) || empty($userpass) || $ruleInfringement === 1){
     $ruleInfringement = 1;
     header('Location: signup.php');
   }else{
@@ -36,7 +36,7 @@
     //check if email already exists
     if($num<1){
 
-        $insertUserNew = "INSERT INTO Sps_User(Name, Email, Password, DOB, PhoneNo, UserAccountStatusID, AvatarLocation, haveAvatar) VALUES ('$name', '$email', AES_ENCRYPT('$userpass', 'myN3wK3y15B3tt3rThanMyLa5tK3y'), '$dob', '$phone', 2, '$avatar', 0)";
+        $insertUserNew = "INSERT INTO Sps_User(Name, Email, Password, UserAccountStatusID, AvatarLocation, haveAvatar) VALUES ('$name', '$email', AES_ENCRYPT('$userpass', 'myN3wK3y15B3tt3rThanMyLa5tK3y'), 2, '$avatar', 0)";
 
         $resultInsert =  $conn->query($insertUserNew);
         if(!$resultInsert){
@@ -47,6 +47,7 @@
 
     }else{
       header('Location: signup.php');
+
     }
   }
 ?>

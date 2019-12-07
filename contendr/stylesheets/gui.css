@@ -9,12 +9,41 @@
   border: thin solid black;
 }
 
+.mobileUsrNavatar{
+    display: none;
+}
+
+.navbar-toggler:focus, .navbar-toggler:active {
+    outline: none;
+    box-shadow: none;
+}
+
 .mainbk{
   background-color: hsl(182,35%,28%);
 }
 
 .linkpad{
   padding-right: 10px;
+}
+
+.navbar-brand {
+    text-decoration: none;
+}
+
+.navButtons {
+    color: hsl(37,80%,70%);
+    position: relative;
+    left: -55%;
+    font-size: 20px;
+}
+
+.navList{
+    padding-top: 20px;
+}
+
+.navButtons:hover{
+    color: white;
+    text-decoration:none;
 }
 
 .navImages{
@@ -367,6 +396,11 @@
     margin: 0 auto;
 
   }
+
+  /*usr Nav*/
+    .mobileUsrNavatar{
+        display: block;
+    }
 
 
 }

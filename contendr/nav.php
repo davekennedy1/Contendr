@@ -36,6 +36,7 @@ $logoImage = "logoImages/".$num.".png";
 ?>
 
   <div class="d-flex flex-row order-2 order-lg ml-auto">
+
     <ul class="navbar-nav flex-row">
       <li class="nav-item linkpad">  <a class="nav-link" data-toggle="modal" data-target="#loginModal" href="#">Login</a></li>
       <li class="nav-item linkpad">  <a class="nav-link" data-toggle="modal" data-target="#signUPModal" href="#">Signup</a></li>
@@ -117,7 +118,7 @@ $logoImage = "logoImages/".$num.".png";
         </div>
         <div class="row">
           <div class="signupBttmBtn buttonpos">
-            <a class="btn btn-info btn-block" href="signup.php" role="button">Sign Up</a>
+            <a class="btn btn-info btn-block" href="#" role="button">Sign Up</a><!--signup.php  for href -->
           </div>
         </div>
       </div>

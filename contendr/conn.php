@@ -4,7 +4,7 @@
   //username
   $username = "root";
   //password
-  $password = "1Qwertyu";
+  $password = "root";
   //dbname
   $db = "Contendr";
 

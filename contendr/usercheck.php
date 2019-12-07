@@ -14,7 +14,7 @@
   $num = $result->num_rows;
 
   //check if username already exists
-  if($num<1 &&  $user != ''){
+  if($num<1){
     echo"We'll never share your email with anyone else.";
   }else if($num>0){
     echo"That email is already registered";
