@@ -1,7 +1,7 @@
 <?php
 session_start();
-if(!isset($_SESSION['13072064_contendrUnom'])){
-  header('Location: ../index.php');
+if (!isset($_SESSION['13072064_contendrUnom'])) {
+    header('Location: ../index.php');
 }
 $sessionUser = $_SESSION['13072064_contendrUnom'];
 $uid = $_SESSION['13072064_contenderUID'];
@@ -57,7 +57,7 @@ include("../conn.php");
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<!--  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script> Probably don't need this-->
+  <!--  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script> Probably don't need this-->
 
   <title>Contendr</title>
 </head>
@@ -70,107 +70,106 @@ include("../conn.php");
   echo "
   <div class='container'>
   ";
-  if(!$currentPlayersResult){
-    echo $conn->error;
-  }else{
+  if (!$currentPlayersResult) {
+      echo $conn->error;
+  } else {
       while ($row = $currentPlayersResult->fetch_assoc()) {
-        $regPlayer= $row['RegisteredPlayer'];
+          $regPlayer= $row['RegisteredPlayer'];
       }
 
 
-    if(!$availableSlotResult){
-      echo $conn->error;
-    }else{
-        while ($row = $availableSlotResult->fetch_assoc()) {
-          $availableSlot= $row['AvailableSlot'];
-        }
+      if (!$availableSlotResult) {
+          echo $conn->error;
+      } else {
+          while ($row = $availableSlotResult->fetch_assoc()) {
+              $availableSlot= $row['AvailableSlot'];
+          }
 
 
 
-    if(!$matchResult){
-      echo $conn->error;
-    }else{
+          if (!$matchResult) {
+              echo $conn->error;
+          } else {
+              while ($row = $matchResult->fetch_assoc()) {
+                  $matchName = $row['MatchName'];
+                  $cityName = $row['CityOrTownName'];
+                  $sportName = $row['SportName'];
+                  $venueName = $row['VenueName'];
+                  $matchTime = $row['MatchDateTime'];
+                  $matchStatus = $row['MatchStatusID'];
+                  $sportID = $row['SportID'];
+                  $matchImage = $row['MatchImage'];
+                  $matchEndtime = $row['MatchEndTime'];
+                  $endTime = new DateTime($matchEndtime);
+                  $endTime = $endTime->format('g:iA');
+                  $cost = $row['Cost'];
+                  $date = new DateTime($matchTime);
+                  $date = $date->format('jS M');
+                  $startTime = new DateTime($matchTime);
+                  $startTime = $startTime->format('g:iA');
+                  $long = $row['Longitude'];
+                  $lat = $row['Latitude'];
+                  $num = $row['NumberOrName'];
+                  $addLine1 = $row['AddressLine1'];
+                  $addLine2 = $row['AddressLine2'];
+                  $addLine3 = $row['AddressLine3'];
+                  $postcode = $row['PostcodeZip'];
 
-      while ($row = $matchResult->fetch_assoc()) {
-        $matchName = $row['MatchName'];
-        $cityName = $row['CityOrTownName'];
-        $sportName = $row['SportName'];
-        $venueName = $row['VenueName'];
-        $matchTime = $row['MatchDateTime'];
-        $matchStatus = $row['MatchStatusID'];
-        $sportID = $row['SportID'];
-        $matchImage = $row['MatchImage'];
-        $matchEndtime = $row['MatchEndTime'];
-        $endTime = new DateTime($matchEndtime);
-        $endTime = $endTime->format('g:iA');
-        $cost = $row['Cost'];
-        $date = new DateTime($matchTime);
-        $date = $date->format('jS M');
-        $startTime = new DateTime($matchTime);
-        $startTime = $startTime->format('g:iA');
-        $long = $row['Longitude'];
-        $lat = $row['Latitude'];
-        $num = $row['NumberOrName'];
-        $addLine1 = $row['AddressLine1'];
-        $addLine2 = $row['AddressLine2'];
-        $addLine3 = $row['AddressLine3'];
-        $postcode = $row['PostcodeZip'];
-
-        //$matchTime = str_replace('-', '/', $matchTime);
+                  //$matchTime = str_replace('-', '/', $matchTime);
 
 
-        switch ($sportID) {
+                  switch ($sportID) {
           case '3':
-            if(!$matchImage){
-              $sportImage = '../defaultSportImages/bball.jpg';
-            }else{
-              $sportImage = '../'.$matchImage;
+            if (!$matchImage) {
+                $sportImage = '../defaultSportImages/bball.jpg';
+            } else {
+                $sportImage = '../'.$matchImage;
             }
 
             break;
 
           case '4':
-            if(!$matchImage){
-              $sportImage = '../defaultSportImages/football.jpg';
-            }else{
-              $sportImage = '../'.$matchImage;
+            if (!$matchImage) {
+                $sportImage = '../defaultSportImages/football.jpg';
+            } else {
+                $sportImage = '../'.$matchImage;
             }
             break;
 
           case '6':
-            if(!$matchImage){
-              $sportImage = '../defaultSportImages/tennis.jpg';
-            }else{
-              $sportImage = '../'.$matchImage;
+            if (!$matchImage) {
+                $sportImage = '../defaultSportImages/tennis.jpg';
+            } else {
+                $sportImage = '../'.$matchImage;
             }
             break;
 
           case '7':
-            if(!$matchImage){
-              $sportImage = '../defaultSportImages/golf.jpg';
-            }else{
-              $sportImage = '../'.$matchImage;
+            if (!$matchImage) {
+                $sportImage = '../defaultSportImages/golf.jpg';
+            } else {
+                $sportImage = '../'.$matchImage;
             }
             break;
 
           case '8':
-            if(!$matchImage){
-              $sportImage = '../defaultSportImages/chess.jpg';
-            }else{
-              $sportImage = '../'.$matchImage;
+            if (!$matchImage) {
+                $sportImage = '../defaultSportImages/chess.jpg';
+            } else {
+                $sportImage = '../'.$matchImage;
             }
             break;
 
           default:
-            if(!$matchImage){
-              $sportImage = '../defaultSportImages/tennisball.png';
-            }else{
-              $sportImage = '../'.$matchImage;
+            if (!$matchImage) {
+                $sportImage = '../defaultSportImages/tennisball.png';
+            } else {
+                $sportImage = '../'.$matchImage;
             }
             break;
         }
 
-          echo"
+                  echo"
           <br>
           <div class='row'>
             <div class='col-sm-6'>
@@ -183,20 +182,26 @@ include("../conn.php");
             </div>
             <div class='col'>
             ";
-            if($regPlayer == 0 && $availableSlot == 1){
-            echo"
+
+                  if ($regPlayer == 0 && $availableSlot == 1) {
+                      echo"
               <button type='button' class='btn btn-sm btn-info' id='js-joinButton' data-toggle='modal' data-target='#joinGameModal'>Join Game</button>
               ";
-            }else if($regPlayer == 0 && $availableSlot == 0){
-              echo"
+                  } elseif ($regPlayer == 0 && $availableSlot == 0) {
+                      echo"
                 <button type='button' class='btn btn-sm btn-danger' disabled>Game Full</button>
               ";
-            }else if($regPlayer == 1){
-              echo"
-                <button type='button' class='btn btn-sm btn-warning' id='js-leaveButton'>Leave Game</button>
+                  } elseif ($regPlayer == 1) {
+                      echo"
+              <form action='joinLeaveGame.php' method='POST'>
+                <input type='hidden' value='0' name='joinLeaveGame'>
+                <input type='hidden' value='$matchID' name='matchID'>
+                <input type='hidden' value='$matchName' name='matchName'>
+                <button type='submit' class='btn btn-sm btn-warning' id='js-leaveButton'>Leave Game</button>
+              </form>
                 ";
-            }
-              echo"
+                  }
+                  echo"
             </div>
           </div>
 
@@ -215,7 +220,13 @@ include("../conn.php");
                   </div>
                   <div class='modal-footer'>
                     <button type='button' class='btn btn-secondary' data-dismiss='modal'>No Thanks</button>
-                    <button type='button' class='btn btn-info'>Join Game</button>
+                    <form action='joinLeaveGame.php' method='POST'>
+                      <input type='hidden' value='1' name='joinLeaveGame'>
+                      <input type='hidden' value='$matchID' name='matchID'>
+                      <input type='hidden' value='$matchName' name='matchName'>
+                      <button type='submit' class='btn btn-info'>Join Game</button>
+                    </form>
+
                   </div>
                 </div>
               </div>
@@ -254,20 +265,20 @@ include("../conn.php");
                   <td><p class='tableTop'><strong>Address: </strong></p></td>
                   <td><p class='tableTop marginleft'>
                   ";
-                  if($num != ' ' && $num != NULL){
-                    echo"$num<br>";
+                  if ($num != ' ' && $num != null) {
+                      echo"$num<br>";
                   }
-                  if($addLine1 != ' ' && $addLine1 != NULL){
-                    echo"$addLine1<br>";
+                  if ($addLine1 != ' ' && $addLine1 != null) {
+                      echo"$addLine1<br>";
                   }
-                  if($addLine2 != ' ' && $addLine2 != NULL){
-                    echo"$addLine2<br>";
+                  if ($addLine2 != ' ' && $addLine2 != null) {
+                      echo"$addLine2<br>";
                   }
-                  if($addLine3 != ' ' && $addLine3 != NULL){
-                    echo"$addLine3<br>";
+                  if ($addLine3 != ' ' && $addLine3 != null) {
+                      echo"$addLine3<br>";
                   }
-                  if($postcode != ' ' && $postcode != NULL){
-                    echo"$postcode<br>";
+                  if ($postcode != ' ' && $postcode != null) {
+                      echo"$postcode<br>";
                   }
                   echo"
                   </p></td>
@@ -279,10 +290,10 @@ include("../conn.php");
             </div>
           </div>
           ";
+              }
+          }
       }
-      }
-      }
-    }
+  }
   ?>
     </div>
     <?php
@@ -293,8 +304,5 @@ include("../conn.php");
     $conn->close();
   ?>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCa3cYpWx3nLwIwV7KmCPuIHtnVl8w9LWM&callback=myMap"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

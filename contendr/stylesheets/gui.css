@@ -30,18 +30,28 @@
     text-decoration: none;
 }
 
-.navButtons {
-    color: hsl(37,80%,70%);
+.navPad {
+    margin-bottom: 57px;
+}
+
+#navBrand {
+    text-decoration: none;
+}
+
+.nav-link {
     position: relative;
-    left: -55%;
-    font-size: 20px;
+    font-size: 15px;
+}
+
+#navButton {
+  color: hsl(37,80%,70%);
 }
 
 .navList{
     padding-top: 20px;
 }
 
-.navButtons:hover{
+#navButton:hover{
     color: white;
     text-decoration:none;
 }
@@ -278,9 +288,6 @@
 }
 
 
-
-
-
 @media only screen and (min-width: 768px) {
   /* login modal */
   .formcontent{
@@ -357,9 +364,6 @@
     max-height: 300px;
   }
 
-
-
-
   /*Incorrect Login page */
   .topMargin{
     margin-top: 5px;
@@ -372,7 +376,6 @@
     font-size: 100%;
     width: 60%;
   }
-
 
   .topPush{
     padding-top: 13%;
@@ -389,6 +392,7 @@
   .boxSize{
     width: 100%;
   }
+
   /* game page */
   #map {
     height: 300px;
@@ -402,5 +406,8 @@
         display: block;
     }
 
-
+    .nav-link {
+        position: relative;
+        font-size: 20px;
+    }
 }

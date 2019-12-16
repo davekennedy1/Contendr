@@ -41,9 +41,10 @@ if(!$avatarResult){
 </head>
 
 <body>
-<nav class='navbar sticky-top navbar-expand-sm navbar-dark mainbk'>
+  <div class='navPad'>
+<nav class='navbar fixed-top navbar-dark mainbk'>
 <?php echo"
-  <a class='navbar-item' href='index.php'>
+  <a class='navbar-item' id='navBrand' href='index.php'>
     <blockqoute class='navfont'>CONTENDR</blockquote>
     <img src='$logoImage' width='27' height='27' class='navImages' alt='logoImage'>
   </a>
@@ -55,40 +56,34 @@ if(!$avatarResult){
 
 </button>
 
-<div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+<div class="navbar-collapse offcanvas-collapse" id="offcanvasNav">
     <ul class="navbar-nav ml-auto">
 
         <li class="nav-item active">
-            <a class="nav-link navButtons" href="index.php"><?php echo "$sessionUser"; echo"<img class='usrNavImage mobileUsrNavatar' src='../$avatarImage' width='25'> ";?></a>
-        </li>
-
-        <li class="nav-item navList">
-            <a class="navButtons" href="#">My Profile</a>
+            <a class="nav-link" href="index.php"><?php echo "$sessionUser";?><span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item navList">
-            <a class="navButtons" href="#">My Messages</a>
+            <a class="nav-link" id="navButton" href="#"><img src="../logoImages/1.png" width='27' height='27' class='navImages' alt='logoImage'>Games</a>
         </li>
         <li class="nav-item navList">
-            <a class="navButtons" href="#">My Games</a>
+            <a class="nav-link" id="navButton" href="#"><img src="../logoImages/2.png" width='27' height='27' class='navImages' alt='logoImage'>Groups</a>
         </li>
         <li class="nav-item navList">
-            <a class="navButtons" href="#">My Groups</a>
+            <a class="nav-link" id="navButton" href="#"><img src="../logoImages/3.png" width='27' height='27' class='navImages' alt='logoImage'>Messages</a>
         </li>
         <li class="nav-item navList">
-            <a class="navButtons" href="#">Make a Game</a>
+            <a class="nav-link" id="navButton" href="#"><img src="../logoImages/4.png" width='27' height='27' class='navImages' alt='logoImage'>Settings</a>
         </li>
         <li class="nav-item navList">
-            <a class="navButtons" href="#">Make a Group</a>
-        </li>
-        <li class="nav-item navList">
-            <a class="navButtons" href="signout.php">Logout</a>
+            <a class="nav-link" id="navButton" href="signout.php"><img src="../logoImages/1.png" width='27' height='27' class='navImages' alt='logoImage'>Logout</a>
         </li>
     </ul>
   </div>
 
-
 </nav>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+</div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
