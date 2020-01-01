@@ -63,7 +63,7 @@ if(!$avatarResult){
             <a class="nav-link" href="index.php"><?php echo "$sessionUser";?><span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item navList">
-            <a class="nav-link" id="navButton" href="#"><img src="../logoImages/1.png" width='27' height='27' class='navImages' alt='logoImage'>Games</a>
+            <a class="nav-link" id="navButton" href="mygames.php"><img src="../logoImages/1.png" width='27' height='27' class='navImages' alt='logoImage'>Games</a>
         </li>
         <li class="nav-item navList">
             <a class="nav-link" id="navButton" href="#"><img src="../logoImages/2.png" width='27' height='27' class='navImages' alt='logoImage'>Groups</a>

@@ -28,4 +28,5 @@
           echo $conn->error;
       }
   };
+  $conn->close();
   header('Location: game.php?gameid='.$matchID);

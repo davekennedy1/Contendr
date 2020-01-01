@@ -21,5 +21,5 @@
   }else{
     echo"Required";
   }
-
+$conn->close();
 ?>

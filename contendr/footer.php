@@ -11,7 +11,7 @@
   <footer>
     <div id="footerText">
         <p>
-            © Copyright 2019 Contendr.co.uk Limited. All rights reserved.
+            © Copyright 2019 Contendr.co.uk Limited.<br>All rights reserved.
         </p>
     </div>
 </footer>

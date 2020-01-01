@@ -16,8 +16,10 @@
     $row = $result->fetch_assoc();
     $_SESSION['13072064_contendrUnom']= $row['Name'];
     $_SESSION['13072064_contenderUID']= $row['UserID'];
+    $conn->close();
     header('Location: index.php');
   }else{
+    $conn->close();
     header('Location: ../incorrectlogin.php');
   }
 ?>
