@@ -15,6 +15,11 @@
                 VALUES (NULL, '$uid', '$matchID')";
       $resultJoin = $conn->query($joinGame);
 
+      $incrementNoPlayers = "UPDATE Sps_Match
+                             SET Sps_Match.NoOfPlayers = Sps_Match.NoOfPlayers + 1
+                             WHERE Sps_Match.MatchID = $matchID";
+      $resultIncrement = $conn->query($incrementNoPlayers);
+
       if (!$resultJoin) {
           echo $conn->error;
       }
@@ -23,6 +28,11 @@
                   WHERE Sps_PlayersMatch.UserID = $uid
                   AND Sps_PlayersMatch.MatchID = $matchID";
       $resultLeave = $conn->query($leaveGame);
+
+      $decrementNoPlayers = "UPDATE Sps_Match
+                             SET Sps_Match.NoOfPlayers = Sps_Match.NoOfPlayers - 1
+                             WHERE Sps_Match.MatchID = $matchID";
+      $resultDecrement = $conn->query($decrementNoPlayers);
 
       if (!$resultLeave) {
           echo $conn->error;

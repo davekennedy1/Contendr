@@ -287,6 +287,10 @@
   text-align: center;
 }
 
+#noDecoration {
+    text-decoration: none;
+}
+
 
 @media only screen and (min-width: 768px) {
   /* login modal */

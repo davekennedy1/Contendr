@@ -15,11 +15,17 @@ $read = "SELECT * FROM Sps_Sport INNER JOIN Sps_Match
          ON Sps_Match.VenueID = Sps_Venue.VenueID
          WHERE Sps_Match.GameTypeID = 4
          AND Sps_Match.MatchStatusID = 6
+         AND Sps_Match.NoOfPlayers < Sps_Match.MaxPlayers
          AND Sps_Match.MatchDateTime > CURRENT_TIMESTAMP
          ORDER BY Sps_Match.MatchDateTime ASC
          LIMIT 10
          ";
 $result = $conn->query($read);
+
+$matchesIn = "SELECT Sps_PlayersMatch.MatchID FROM Sps_PlayersMatch
+              WHERE Sps_PlayersMatch.UserID = $uid";
+
+$matchesInResult = $conn->query($matchesIn);
 
 ?>
 <!DOCTYPE html>
@@ -67,107 +73,125 @@ $result = $conn->query($read);
   ?>
 
   <?php
-    if(!$result){
+    $userMatches = [];
+    if(!$matchesInResult){
       echo $conn->error;
-    }else{
+    } else {
 
-      while ($row = $result->fetch_assoc()) {
-        $matchName = $row['MatchName'];
-        $cityName = $row['CityOrTownName'];
-        $sportName = $row['SportName'];
-        $venueName = $row['VenueName'];
-        $matchID = $row['MatchID'];
-        $matchTime = $row['MatchDateTime'];
-        $matchStatus = $row['MatchStatusID'];
-        $sportID = $row['SportID'];
-        $matchImage = $row['MatchImage'];
-        $match = new DateTime($matchTime);
-        $match = $match->format('jS M - g:iA');
+      while($outerRow = $matchesInResult->fetch_assoc()) {
+        $userMatchID = $outerRow['MatchID'];
+        array_push($userMatches, $userMatchID);
+      }
 
 
-        //$matchTime = str_replace('-', '/', $matchTime);
+      if(!$result){
+        echo $conn->error;
+      }else{
+
+        while ($row = $result->fetch_assoc()) {
+          $matchID = $row['MatchID'];
+          if(in_array($matchID, $userMatches)){
+            continue;
+          }
+          $matchName = $row['MatchName'];
+          $cityName = $row['CityOrTownName'];
+          $sportName = $row['SportName'];
+          $venueName = $row['VenueName'];
+          $matchTime = $row['MatchDateTime'];
+          $matchStatus = $row['MatchStatusID'];
+          $sportID = $row['SportID'];
+          $matchImage = $row['MatchImage'];
+          $match = new DateTime($matchTime);
+          $match = $match->format('jS M - g:iA');
 
 
-        switch ($sportID) {
-          case '3':
-            if(!$matchImage){
-              $sportImage = '../defaultSportImages/bball.jpg';
-            }else{
-              $sportImage = '../'.$matchImage;
-            }
+          //$matchTime = str_replace('-', '/', $matchTime);
 
-            break;
 
-          case '4':
-            if(!$matchImage){
-              $sportImage = '../defaultSportImages/football.jpg';
-            }else{
-              $sportImage = '../'.$matchImage;
-            }
-            break;
+          switch ($sportID) {
+            case '3':
+              if(!$matchImage){
+                $sportImage = '../defaultSportImages/bball.jpg';
+              }else{
+                $sportImage = '../'.$matchImage;
+              }
 
-          case '6':
-            if(!$matchImage){
-              $sportImage = '../defaultSportImages/tennis.jpg';
-            }else{
-              $sportImage = '../'.$matchImage;
-            }
-            break;
+              break;
 
-          case '7':
-            if(!$matchImage){
-              $sportImage = '../defaultSportImages/golf.jpg';
-            }else{
-              $sportImage = '../'.$matchImage;
-            }
-            break;
+            case '4':
+              if(!$matchImage){
+                $sportImage = '../defaultSportImages/football.jpg';
+              }else{
+                $sportImage = '../'.$matchImage;
+              }
+              break;
 
-          case '8':
-            if(!$matchImage){
-              $sportImage = '../defaultSportImages/chess.jpg';
-            }else{
-              $sportImage = '../'.$matchImage;
-            }
-            break;
+            case '6':
+              if(!$matchImage){
+                $sportImage = '../defaultSportImages/tennis.jpg';
+              }else{
+                $sportImage = '../'.$matchImage;
+              }
+              break;
 
-          default:
-            if(!$matchImage){
-              $sportImage = '../defaultSportImages/tennisball.png';
-            }else{
-              $sportImage = '../'.$matchImage;
-            }
-            break;
-        }
+            case '7':
+              if(!$matchImage){
+                $sportImage = '../defaultSportImages/golf.jpg';
+              }else{
+                $sportImage = '../'.$matchImage;
+              }
+              break;
 
-        if($matchStatus == 6){
-          echo"
-              <div class='col-sm-6'>
-                <a href='game.php?gameid=$matchID'>
-                  <div class='card myBottomMargin'>
-                    <img src='$sportImage' class='card-img-top imageLimit' alt='sport image'>
-                    <div class='sportText'>$sportName</div>
-                    <div class='card-body'>
-                      <p class='card-text'>
-                         <strong>Venue: </strong>$venueName</br>
-                         <strong>City/Town: </strong>$cityName</br>
-                         <strong>Date/Time: </strong>$match
-                      </p>
+            case '8':
+              if(!$matchImage){
+                $sportImage = '../defaultSportImages/chess.jpg';
+              }else{
+                $sportImage = '../'.$matchImage;
+              }
+              break;
+
+            default:
+              if(!$matchImage){
+                $sportImage = '../defaultSportImages/tennisball.png';
+              }else{
+                $sportImage = '../'.$matchImage;
+              }
+              break;
+          }
+
+
+          if($matchStatus == 6){
+            echo"
+                <div class='col-sm-6'>
+                  <a href='game.php?gameid=$matchID'>
+                    <div class='card myBottomMargin'>
+                      <img src='$sportImage' class='card-img-top imageLimit' alt='sport image'>
+                      <div class='sportText'>$sportName</div>
+                      <div class='card-body'>
+                        <p class='card-text'>
+                           <strong>Venue: </strong>$venueName</br>
+                           <strong>City/Town: </strong>$cityName</br>
+                           <strong>Date/Time: </strong>$match
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </a>
-              </div>
-              </br>
+                  </a>
+                </div>
+                </br>
 
 
 
 
-          ";
+            ";
 
-        }else{
-          echo"nope";
+          }else{
+            echo"nope";
+          }
+
         }
 
       }
+
 
     }
 

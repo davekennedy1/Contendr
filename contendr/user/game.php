@@ -18,7 +18,7 @@ include("../conn.php");
                 ON Sps_User.UserID = Sps_PlayersMatch.UserID
                 INNER JOIN Sps_Match
                 On Sps_PlayersMatch.MatchID = Sps_Match.MatchID
-                WHERE Sps_Match.MatchID = $matchID) < (SELECT Sps_Match.MaxPlayers FROM Sps_Match WHERE Sps_Match.MatchID = $matchID), 1, 0) AS AvailableSlot";
+                WHERE Sps_Match.MatchID = $matchID) < (SELECT Sps_Match.MaxPlayers FROM Sps_Match WHERE Sps_Match.MatchID = $matchID), 1, 0) AS AvailableSlot";   /* Return 1 if theres an availab;e slot in this game*/
 
     $currentPlayersResult = $conn->query($playerRead);
     $availableSlotResult = $conn->query($slotRead);
@@ -43,8 +43,10 @@ include("../conn.php");
              ON Sps_Match.MatchStatusID = Sps_MatchStatus.MatchStatusID
              INNER JOIN Sps_RecurringMatch
              ON Sps_Match.RecurringMatchID = Sps_RecurringMatch.RecurringMatchID
+             INNER JOIN Sps_ModeratorMatch
+             ON Sps_Match.MatchID = Sps_ModeratorMatch.MatchID
              INNER JOIN Sps_User
-             ON Sps_Match.ModeratorID = Sps_User.UserID
+             ON Sps_ModeratorMatch.UserID = Sps_User.UserID
              INNER JOIN Sps_CityOrTown
              ON Sps_Match.CityID = Sps_CityOrTown.CityOrTownID
              INNER JOIN Sps_Address

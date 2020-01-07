@@ -9,6 +9,7 @@ $read = "SELECT * FROM Sps_Sport INNER JOIN Sps_Match
          ON Sps_Match.VenueID = Sps_Venue.VenueID
          WHERE Sps_Match.GameTypeID = 4
          AND Sps_Match.MatchStatusID = 6
+         AND Sps_Match.NoOfPlayers < Sps_Match.MaxPlayers
          AND Sps_Match.MatchDateTime > CURRENT_TIMESTAMP
          ORDER BY Sps_Match.MatchDateTime ASC
          LIMIT 10
