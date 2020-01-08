@@ -15,24 +15,28 @@ $cities = "SELECT Sps_CityOrTown.CityOrTownName, Sps_CityOrTown.CityOrTownID FRO
 $citiesResult = $conn->query($cities);
 $citiesNum = $citiesResult->num_rows;
 
+$proficiency = "SELECT * FROM Sps_ProficiencyLevel";
+$proficiencyResult = $conn->query($proficiency);
+$proficiencyNum = $proficiencyResult->num_rows;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <!-- bootstrap cdn -->
   <!-- google fonts -->
   <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One" rel="stylesheet">
   <!-- css font-family: 'Alfa Slab One', cursive; -->
   <!-- theme colours i like hsl(181,82,15), hsl(37,80,70), hsl(0,0,95) & white -->
   <!-- font awesome icons cdn -->
   <script src="https://kit.fontawesome.com/0a85083fa0.js" crossorigin="anonymous"></script>
-
+  <!-- Popper cdn for bootstrap tooltips -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <!-- Date Picker with time cdn -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/default.css">
+  <!-- <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/default.css"> -->
 
   <title>Contendr</title>
 </head>
@@ -68,9 +72,6 @@ $citiesNum = $citiesResult->num_rows;
             <label for="endTimePicker">End Time:</label>
             <input type="text" class="form-control " id="endTimePicker" />
           </div>
-
-
-
 
       </div>
 
@@ -114,7 +115,37 @@ $citiesNum = $citiesResult->num_rows;
         </div>
       </div>
 
+      <div class="form-row">
+        <div class="form-group col-md-3">
+          <label for="indoorOutdoor">Indoor/Outdoor:</label>
+            <select id="indoorOutdoor" class="form-control">
+            <option disabled='disabled' selected>Select</option>
+            <option>Indoor</option>
+            <option>Outdoor</option>
+            </select>
+        </div>
+        <div class="form-group col-md-3">
 
+          <label for="difficulty">Difficulty:</label>
+            <select id="difficulty" class="form-control">
+              <option disabled='disabled' selected>Select</option>
+              <?php
+                 for($loop = 0; $loop<$proficiencyNum; $loop++ ){
+                    $proficiencyRow = $proficiencyResult->fetch_assoc();
+                    $proficiencyID = $proficiencyRow['ProficiencyLevelID'];
+                    $proficiencyLevelName = $proficiencyRow['ProficiencyLevelName'];
+                    $proficiencyLevelDescription = $proficiencyRow['ProficiencyLevelDescription'];
+                    echo"
+                      <option value='$proficiencyID' data-toggle='tooltip' data-placement='right' title='$proficiencyLevelDescription'>$proficiencyLevelName</option>
+                    ";
+                  };
+              ?>
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+          <label id="difficultyDiscription"></label>
+        </div>
+      </div>
 
   <button type="submit" class="btn btn-primary">Sign in</button>
 </form>
@@ -122,6 +153,7 @@ $citiesNum = $citiesResult->num_rows;
 </div>
 
 <script>
+
 $(function () {
 
     flatpickr("#startTimePicker", {
@@ -150,7 +182,6 @@ $(function () {
       disableMobile: "true"
     });
 });
-
 
   function fetchVenues() {
     var citySelected = document.getElementById( "city" );
