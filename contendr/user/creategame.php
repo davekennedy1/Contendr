@@ -26,6 +26,13 @@ $citiesNum = $citiesResult->num_rows;
   <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One" rel="stylesheet">
   <!-- css font-family: 'Alfa Slab One', cursive; -->
   <!-- theme colours i like hsl(181,82,15), hsl(37,80,70), hsl(0,0,95) & white -->
+  <!-- font awesome icons cdn -->
+  <script src="https://kit.fontawesome.com/0a85083fa0.js" crossorigin="anonymous"></script>
+
+  <!-- Date Picker with time cdn -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/default.css">
 
   <title>Contendr</title>
 </head>
@@ -39,59 +46,112 @@ $citiesNum = $citiesResult->num_rows;
       <!-- Sport, Venue, Date, Name -->
 
     <form>
-  <div class="form-row">
-    <div class="form-group col-md-4">
-      <label for="sport">Sport:</label>
-      <select id="sport" class="form-control">
-        <option disabled='disabled' selected>Select</option>
-        <?php
-           for($loop = 0; $loop<$sportsNum; $loop++ ){
-              $sportsRow = $sportsResult->fetch_assoc();
-              $sportName = $sportsRow['SportName'];
-              echo"
-                <option value=''>$sportName</option>
-              ";
-            };
-        ?>
-      </select>
-    </div>
-    <div class="form-group col-md-4">
-      <label for="city">City:</label>
-      <select id="city" onchange="fetchVenues()" class="form-control">
-        <option disabled='disabled' selected>Select</option>
-        <?php
-           for($loop = 0; $loop<$citiesNum; $loop++ ){
-              $citiesRow = $citiesResult->fetch_assoc();
-              $cityName = $citiesRow['CityOrTownName'];
-              $cityID = $citiesRow['CityOrTownID'];
-              echo"
-                <option value='$cityID'>$cityName</option>
-              ";
-            };
-        ?>
-      </select>
-    </div>
-    <div class="form-group col-md-4">
-      <label for="venue">Venue:</label>
-      <select id="venue" onchange="venueNum()" disabled= true class="form-control">
-        <option disabled='disabled' selected>Select</option>
-      </select>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="inputAddress">Date:</label>
-    <input type="DateTime" class="form-control" id="inputAddress" placeholder="Date time">
-  </div>
-  <div class="form-group">
-    <label for="inputAddress2">Game Name:</label>
-    <input type="text" class="form-control" id="inputAddress2" placeholder="<?php echo"$sessionUser's game";?>">
-  </div>
+
+      <div class="form-row">
+
+          <div class="form-group col-sm-6">
+            <label for="inputAddress2">Game Name:</label>
+            <input type="text" class="form-control" id="inputAddress2" placeholder="<?php echo"$sessionUser's game";?>">
+          </div>
+
+          <div class="form-group col-sm-2">
+            <label for="datePicker">Date:</label>
+            <input type="text" class="form-control " id="datePicker" />
+          </div>
+
+          <div class="form-group col-sm-2">
+            <label for="startTimePicker">Start Time:</label>
+            <input type="text" class="form-control " id="startTimePicker" />
+          </div>
+
+          <div class="form-group col-sm-2">
+            <label for="endTimePicker">End Time:</label>
+            <input type="text" class="form-control " id="endTimePicker" />
+          </div>
+
+
+
+
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="sport">Sport:</label>
+          <select id="sport" class="form-control">
+            <option disabled='disabled' selected>Select</option>
+            <?php
+               for($loop = 0; $loop<$sportsNum; $loop++ ){
+                  $sportsRow = $sportsResult->fetch_assoc();
+                  $sportName = $sportsRow['SportName'];
+                  echo"
+                    <option value=''>$sportName</option>
+                  ";
+                };
+            ?>
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="city">City:</label>
+          <select id="city" onchange="fetchVenues()" class="form-control">
+            <option disabled='disabled' selected>Select</option>
+            <?php
+               for($loop = 0; $loop<$citiesNum; $loop++ ){
+                  $citiesRow = $citiesResult->fetch_assoc();
+                  $cityName = $citiesRow['CityOrTownName'];
+                  $cityID = $citiesRow['CityOrTownID'];
+                  echo"
+                    <option value='$cityID'>$cityName</option>
+                  ";
+                };
+            ?>
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="venue">Venue:</label>
+          <select id="venue" onchange="venueNum()" disabled= true class="form-control">
+            <option disabled='disabled' selected>Select</option>
+          </select>
+        </div>
+      </div>
+
+
+
   <button type="submit" class="btn btn-primary">Sign in</button>
 </form>
 </div>
 </div>
 
 <script>
+$(function () {
+
+    flatpickr("#startTimePicker", {
+      enableTime: true,
+      noCalendar: true,
+      dateFormat: "H:i",
+      time_24hr: true,
+      defaultMinute: 0,
+      minuteIncrement: 30,
+      disableMobile: "true"
+    });
+
+    flatpickr("#endTimePicker", {
+      enableTime: true,
+      noCalendar: true,
+      dateFormat: "H:i",
+      time_24hr: true,
+      defaultMinute: 0,
+      minuteIncrement: 30,
+      disableMobile: "true"
+    });
+
+    flatpickr("#datePicker", {
+      minDate: "today",
+      dateFormat: 'd M Y',
+      disableMobile: "true"
+    });
+});
+
+
   function fetchVenues() {
     var citySelected = document.getElementById( "city" );
     var cityID = citySelected.options[ citySelected.selectedIndex ].value;

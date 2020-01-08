@@ -15,7 +15,7 @@
            ON Sps_Match.VenueID = Sps_Venue.VenueID
            INNER JOIN Sps_PlayersMatch
 		       ON Sps_Match.MatchID = Sps_PlayersMatch.MatchID
-           WHERE Sps_PlayersMatch.UserID = 11
+           WHERE Sps_PlayersMatch.UserID = $uid
            AND Sps_Match.MatchDateTime > CURRENT_TIMESTAMP
            ORDER BY Sps_Match.MatchDateTime ASC;
            ";
@@ -44,7 +44,7 @@
     <div class='row'>
       <div class='col'>
         <hr>
-            <a href="creategame.php">
+            <a href="creategame.php" id="noDecoration">
               <button type='button' class='btn btn-outline-success btn-lg btn-block'>+ Make a Game</button>
             </a>
       </div>
@@ -129,7 +129,7 @@
 
             echo"
 
-                <div class='col-sm-4'>
+                <div class='col-sm-6'>
                   <a href='game.php?gameid=$matchID'>
                     <div class='card myBottomMargin'>
                       <img src='$sportImage' class='card-img-top imageLimit' alt='sport image'>
