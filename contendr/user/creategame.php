@@ -125,7 +125,6 @@ $proficiencyNum = $proficiencyResult->num_rows;
             </select>
         </div>
         <div class="form-group col-md-3">
-
           <label for="difficulty">Difficulty:</label>
             <select id="difficulty" class="form-control">
               <option disabled='disabled' selected>Select</option>
@@ -143,7 +142,20 @@ $proficiencyNum = $proficiencyResult->num_rows;
             </select>
         </div>
         <div class="form-group col-md-3">
-          <label id="difficultyDiscription"></label>
+          <label>Public Or Private:</label>
+          <div class="form-check">
+
+            <input class="form-check-input" onchange="publicPrivate(0)" type="checkbox" value="" id="publicGame" checked>
+            <label class="form-check-label" for="publicGame">
+              Public Game
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" onchange="publicPrivate(1)" type="checkbox" value="" id="privateGame">
+            <label class="form-check-label" for="privateGame">
+              Private Game
+            </label>
+          </div>
         </div>
       </div>
 
@@ -182,6 +194,19 @@ $(function () {
       disableMobile: "true"
     });
 });
+
+  function publicPrivate(id) {
+    var publicGame = document.getElementById("publicGame");
+    var privateGame = document.getElementById("privateGame");
+
+    if(id ===0) {
+      publicGame.checked = true;
+      privateGame.checked = false;
+    } else if (id ===1) {
+      publicGame.checked = false;
+      privateGame.checked = true;
+    }
+  }
 
   function fetchVenues() {
     var citySelected = document.getElementById( "city" );
