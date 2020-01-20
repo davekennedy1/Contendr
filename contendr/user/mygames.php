@@ -7,18 +7,30 @@
   $uid = $_SESSION['13072064_contenderUID'];
   include("../conn.php");
 
-  $readUpcomingGames = "SELECT * FROM Sps_Sport INNER JOIN Sps_Match
-           ON Sps_Sport.SportID = Sps_Match.SportID
-           INNER JOIN Sps_CityOrTown
-           ON Sps_Match.CityID = Sps_CityOrTown.CityOrTownID
-           INNER JOIN Sps_Venue
-           ON Sps_Match.VenueID = Sps_Venue.VenueID
-           INNER JOIN Sps_PlayersMatch
-		       ON Sps_Match.MatchID = Sps_PlayersMatch.MatchID
-           WHERE Sps_PlayersMatch.UserID = $uid
-           AND Sps_Match.MatchDateTime > CURRENT_TIMESTAMP
-           ORDER BY Sps_Match.MatchDateTime ASC;
-           ";
+  $readUpcomingGames = "SELECT Sps_Sport.SportID, Sps_Sport.SportName, Sps_Sport.SportDescription, Sps_Match.MatchID, Sps_Venue.VenueID, Sps_Match.SportTypeID, Sps_Match.MatchTypeID, Sps_Match.SportID, Sps_Match.ProficiencyLevelID, Sps_Match.MatchDateTime, Sps_Match.GameTypeID, Sps_Match.MatchName, Sps_Match.Cost, Sps_Match.MaxPlayers, Sps_Match.MinPlayers, Sps_Match.MatchStatusID, Sps_Match.RecurringMatchID, Sps_Match.EquipmentID, Sps_Match.MatchEndTime, Sps_Match.CityID,Sps_Match.MatchImage, Sps_Match.NoOfPlayers, Sps_CityOrTown.CityOrTownID, Sps_CityOrTown.CityOrTownName, Sps_CityOrTown.CountryID, Sps_Venue.VenueID, Sps_Venue.VenueName, Sps_Venue.Pitch, Sps_Venue.Room, Sps_Venue.TableBooked, Sps_Venue.Court, Sps_Venue.AddressID, Sps_Venue.ParkingDescription, Sps_PlayersMatch.UserID, Sps_PlayersMatch.MatchID FROM Sps_Sport INNER JOIN Sps_Match
+ON Sps_Sport.SportID = Sps_Match.SportID
+INNER JOIN Sps_CityOrTown
+ON Sps_Match.CityID = Sps_CityOrTown.CityOrTownID
+INNER JOIN Sps_Venue
+ON Sps_Match.VenueID = Sps_Venue.VenueID
+INNER JOIN Sps_PlayersMatch
+ON Sps_Match.MatchID = Sps_PlayersMatch.MatchID
+INNER JOIN Sps_ModeratorMatch
+ON Sps_Match.MatchID = Sps_ModeratorMatch.MatchID
+WHERE Sps_PlayersMatch.UserID = 11
+AND Sps_Match.MatchDateTime > CURRENT_TIMESTAMP
+UNION
+SELECT Sps_Sport.SportID, Sps_Sport.SportName, Sps_Sport.SportDescription, Sps_Match.MatchID, Sps_Venue.VenueID, Sps_Match.SportTypeID, Sps_Match.MatchTypeID, Sps_Match.SportID, Sps_Match.ProficiencyLevelID, Sps_Match.MatchDateTime, Sps_Match.GameTypeID, Sps_Match.MatchName, Sps_Match.Cost, Sps_Match.MaxPlayers, Sps_Match.MinPlayers, Sps_Match.MatchStatusID, Sps_Match.RecurringMatchID, Sps_Match.EquipmentID, Sps_Match.MatchEndTime, Sps_Match.CityID,Sps_Match.MatchImage, Sps_Match.NoOfPlayers, Sps_CityOrTown.CityOrTownID, Sps_CityOrTown.CityOrTownName, Sps_CityOrTown.CountryID, Sps_Venue.VenueID, Sps_Venue.VenueName, Sps_Venue.Pitch, Sps_Venue.Room, Sps_Venue.TableBooked, Sps_Venue.Court, Sps_Venue.AddressID, Sps_Venue.ParkingDescription, Sps_ModeratorMatch.UserID, Sps_ModeratorMatch.MatchID  FROM Sps_Sport INNER JOIN Sps_Match
+ON Sps_Sport.SportID = Sps_Match.SportID
+INNER JOIN Sps_CityOrTown
+ON Sps_Match.CityID = Sps_CityOrTown.CityOrTownID
+INNER JOIN Sps_Venue
+ON Sps_Match.VenueID = Sps_Venue.VenueID
+INNER JOIN Sps_ModeratorMatch
+ON Sps_Match.MatchID = Sps_ModeratorMatch.MatchID
+WHERE Sps_ModeratorMatch.UserID = 11
+AND Sps_Match.MatchDateTime > CURRENT_TIMESTAMP
+ORDER BY `MatchDateTime` ASC";
   $upcomingGamesResult = $conn->query($readUpcomingGames);
 ?>
 <!DOCTYPE html>

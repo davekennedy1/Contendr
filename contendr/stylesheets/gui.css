@@ -291,6 +291,14 @@
     text-decoration: none;
 }
 
+.topPadding {
+  padding-top: 30px;
+}
+
+.bottomPadding {
+  padding-bottom: 30px;
+}
+
 
 @media only screen and (min-width: 768px) {
   /* login modal */
