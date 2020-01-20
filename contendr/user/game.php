@@ -9,6 +9,11 @@ include("../conn.php");
 
     $matchID = $conn->real_escape_string(trim($_GET['gameid']));
 
+    $moderatorRead = "SELECT @registeredPlayer := IF((SELECT Sps_ModeratorMatch.UserID FROM Sps_ModeratorMatch INNER JOIN Sps_User
+                     On Sps_ModeratorMatch.UserID = Sps_User.UserID
+                     WHERE Sps_ModeratorMatch.MatchID = $matchID
+                     AND Sps_User.UserID = $uid) = $uid, 1, 0) AS Moderator"; /* Return 1 if player is a moderator of this game else 0 */
+
     $playerRead = "SELECT @registeredPlayer := IF((SELECT Sps_PlayersMatch.UserID FROM Sps_PlayersMatch INNER JOIN Sps_User
                   On Sps_PlayersMatch.UserID = Sps_User.UserID
                   WHERE Sps_PlayersMatch.MatchID = $matchID
@@ -20,8 +25,10 @@ include("../conn.php");
                 On Sps_PlayersMatch.MatchID = Sps_Match.MatchID
                 WHERE Sps_Match.MatchID = $matchID) < (SELECT Sps_Match.MaxPlayers FROM Sps_Match WHERE Sps_Match.MatchID = $matchID), 1, 0) AS AvailableSlot";   /* Return 1 if theres an availab;e slot in this game*/
 
+    $moderatorResult = $conn->query($moderatorRead);
     $currentPlayersResult = $conn->query($playerRead);
     $availableSlotResult = $conn->query($slotRead);
+    $moderator = 0;
     $regPlayer = 0;
     $availableSlot = 0;
 
@@ -75,6 +82,11 @@ include("../conn.php");
   if (!$currentPlayersResult) {
       echo $conn->error;
   } else {
+
+      while ($row = $moderatorResult->fetch_assoc()) {
+          $moderator = $row['Moderator'];
+      }
+
       while ($row = $currentPlayersResult->fetch_assoc()) {
           $regPlayer= $row['RegisteredPlayer'];
       }
@@ -173,6 +185,11 @@ include("../conn.php");
 
                   echo"
           <br>
+          ";
+          if($moderator == 1) {
+            echo"<div class='row'><div class='col'><button type='button' class='btn btn-sm btn-secondary' disabled id='js-moderatorButton'>You are a Moderator</button></div></div>";
+          }
+          echo"
           <div class='row'>
             <div class='col-sm-6'>
               <h1>$matchName</h1>
@@ -184,7 +201,6 @@ include("../conn.php");
             </div>
             <div class='col'>
             ";
-
                   if ($regPlayer == 0 && $availableSlot == 1) {
                       echo"
               <button type='button' class='btn btn-sm btn-info' id='js-joinButton' data-toggle='modal' data-target='#joinGameModal'>Join Game</button>
@@ -203,6 +219,7 @@ include("../conn.php");
               </form>
                 ";
                   }
+
                   echo"
             </div>
           </div>
