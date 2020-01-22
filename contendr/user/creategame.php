@@ -45,7 +45,7 @@ $frequencyNum = $frequencyResult->num_rows;
     <!-- Date Picker with time cdn -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <!-- <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/default.css"> -->
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
 
     <title>Contendr</title>
   </head>
@@ -56,27 +56,27 @@ $frequencyNum = $frequencyResult->num_rows;
     ?>
       <div class='container'>
         <div class="topPadding">
-          <form action="submitGame.php" method="POST" enctype="multipart/form-data">
+          <form action="submitGame.php" autocomplete="on" method="POST" enctype="multipart/form-data">
             <div class="form-row">
 
               <div class="form-group col-sm-6">
-                <label for="inputAddress2">Game Name:</label>
-                <input type="text" class="form-control" id="inputAddress2" name="gameName" placeholder="<?php echo" $sessionUser 's game";?>">
+                <label for="gameName">Game Name:</label>
+                <input type="text" class="form-control" id="gameName" name="gameName" placeholder="<?php echo" $sessionUser 's game";?>"required>
           </div>
 
           <div class="form-group col-sm-2">
             <label for="datePicker">Date:</label>
-            <input type="text" class="form-control" name="date" id="datePicker" />
+              <input type="date" class="form-control" name="date" onchange="check(0)" id="datePicker"/>
           </div>
 
           <div class="form-group col-sm-2">
             <label for="startTimePicker">Start Time:</label>
-            <input type="text" class="form-control" name="startTime" id="startTimePicker" />
+            <input type="text" class="form-control" name="startTime" onchange="check(1)" id="startTimePicker"/>
           </div>
 
           <div class="form-group col-sm-2">
             <label for="endTimePicker">End Time:</label>
-            <input type="text" class="form-control" name="endTime" id="endTimePicker" />
+            <input type="text" class="form-control" name="endTime" onchange="check(2)" id="endTimePicker"/>
           </div>
 
       </div>
@@ -84,8 +84,8 @@ $frequencyNum = $frequencyResult->num_rows;
       <div class="form-row">
         <div class="form-group col-md-4">
           <label for="sport">Sport:</label>
-          <select id="sport" name="sport" class="form-control">
-            <option disabled='disabled ' selected>Select</option>
+          <select id="sport" name="sport" class="form-control" required>
+            <option disabled='disabled ' value="" selected>Select</option>
             <?php
                for ($loop = 0; $loop<$sportsNum; $loop++) {
                    $sportsRow = $sportsResult->fetch_assoc();
@@ -100,8 +100,8 @@ $frequencyNum = $frequencyResult->num_rows;
         </div>
         <div class="form-group col-md-4">
           <label for="city">City:</label>
-          <select id="city" onchange="fetchVenues()" name="city" class="form-control">
-            <option disabled='disabled ' selected>Select</option>
+          <select id="city" onchange="fetchVenues()" required name="city" class="form-control">
+            <option disabled='disabled ' value="" selected>Select</option>
             <?php
                for ($loop = 0; $loop<$citiesNum; $loop++) {
                    $citiesRow = $citiesResult->fetch_assoc();
@@ -116,8 +116,8 @@ $frequencyNum = $frequencyResult->num_rows;
         </div>
         <div class="form-group col-md-4">
           <label for="venue">Venue:</label>
-          <select id="venue" onchange="venueNum()" name="venue" disabled= true class="form-control">
-            <option disabled='disabled ' selected>Select</option>
+          <select id="venue" onchange="venueNum()" required name="venue"  disabled= true class="form-control">
+            <option disabled='disabled ' value="" selected>Select</option>
           </select>
         </div>
       </div>
@@ -125,16 +125,16 @@ $frequencyNum = $frequencyResult->num_rows;
       <div class="form-row">
         <div class="form-group col-md-3">
           <label for="indoorOutdoor">Indoor/Outdoor:</label>
-            <select id="indoorOutdoor" name="indoorOutdoor" class="form-control">
-            <option disabled='disabled ' selected>Select</option>
+            <select id="indoorOutdoor" name="indoorOutdoor" required class="form-control">
+            <option disabled='disabled ' value="" selected>Select</option>
             <option>Indoor</option>
             <option>Outdoor</option>
             </select>
         </div>
         <div class="form-group col-md-3">
           <label for="difficulty">Difficulty:</label>
-            <select id="difficulty" name="difficulty" class="form-control">
-              <option disabled='disabled ' selected>Select</option>
+            <select id="difficulty" name="difficulty" required class="form-control">
+              <option disabled='disabled ' value="" selected>Select</option>
               <?php
                  for ($loop = 0; $loop<$proficiencyNum; $loop++) {
                      $proficiencyRow = $proficiencyResult->fetch_assoc();
@@ -196,7 +196,7 @@ $frequencyNum = $frequencyResult->num_rows;
     </div>
     <div class="form-group col-md-3">
       <label for="status">Status:</label>
-      <select id="status" name="status" class="form-control">
+      <select id="status" name="status" required class="form-control">
 
         <?php
            for ($loops = 0; $loops<$statusNum; $loops++) {
@@ -212,7 +212,7 @@ $frequencyNum = $frequencyResult->num_rows;
     </div>
     <div class="form-group col-md-3">
       <label for="frequency">Frequency:</label>
-      <select id="frequency" name="frequency" class="form-control">
+      <select id="frequency" name="frequency" required class="form-control">
 
         <?php
            for ($loops = 0; $loops<$frequencyNum; $loops++) {
@@ -233,7 +233,7 @@ $frequencyNum = $frequencyResult->num_rows;
 </div>
     <div class="form-row">
       <div class="form-group col-md-3 bottomPadding topPadding" id="footerText">
-        <button type="submit" class="btn btn-primary">Create Game</button>
+        <button type="submit" id="submitButton" class="btn btn-primary">Create Game</button>
     </div>
     </div>
 </form>
@@ -241,6 +241,31 @@ $frequencyNum = $frequencyResult->num_rows;
 
 
 <script>
+let date = 0;
+let start = 0;
+let end = 0;
+document.getElementById("submitButton").disabled = true;
+
+function check(inputId) {
+
+  switch(inputId) {
+    case 0:
+      date = 1;
+    break;
+    case 1:
+      start = 1;
+    break;
+    case 2:
+      end = 1;
+    break;
+  }
+
+  if(date === 1 && start === 1 && end === 1) {
+    document.getElementById("submitButton").disabled = false;
+  } else {
+    document.getElementById("submitButton").disabled = true;
+  }
+}
 
 $(function () {
 
