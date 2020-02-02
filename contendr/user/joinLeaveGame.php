@@ -39,4 +39,5 @@
       }
   };
   $conn->close();
+
   header('Location: game.php?gameid='.$matchID);

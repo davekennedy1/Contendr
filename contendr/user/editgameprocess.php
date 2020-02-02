@@ -40,7 +40,7 @@
       }
   }
 
-  if($private == 'Private'){
+  if($private == 'on'){
     $publicOrPrivate = $privateID;
   } else {
     $publicOrPrivate = $publicID;
@@ -114,22 +114,14 @@
   $endTime = date('H:i:s', $endToDate);
   $city = $conn->real_escape_string(trim($_POST['city']));
 
-  $createGame = "INSERT INTO Sps_Match(VenueID, SportTypeID, MatchTypeID, SportID, ProficiencyLevelID, MatchDateTime, GameTypeID, MatchName, Cost, MaxPlayers, MinPlayers, MatchStatusID, RecurringMatchID, EquipmentID, MatchEndTime, CityID, MatchImage, NoOfPlayers) VALUES ('$venue', '$indoorOutdoor', '$matchType', '$sport', '$difficulty', '$matchDateTime', '$publicOrPrivate','$gameName', '$cost', '$maxPlayers', '$minPlayers' , '$status', '$frequency', NULL, '$endTime', '$city', NULL, 1)";
+  $updateGame = "UPDATE Sps_Match SET VenueID='$venue', SportTypeID='$indoorOutdoor', MatchTypeID='$matchType', SportID='$sport', ProficiencyLevelID='$difficulty', MatchDateTime='$matchDateTime', GameTypeID='$publicOrPrivate', MatchName='$gameName', Cost='$cost', MaxPlayers='$maxPlayers', MinPlayers='$minPlayers', MatchStatusID='$status', RecurringMatchID='$frequency', MatchEndTime='$endTime', CityID='$city' WHERE Sps_Match.MatchID = $matchID";
 
-  if (mysqli_query($conn, $createGame)) {
-    $gameID = mysqli_insert_id($conn);
+  if ($conn->query($updateGame) === TRUE) {
+    echo "Record updated successfully";
+  } else {
+    echo "Error updating record: " . $conn->error;
   }
 
-  $addPlayer = "INSERT INTO Sps_PlayersMatch(UserID, MatchID) VALUES ('$uid', '$gameID')";
-
-  $addModerator = "INSERT INTO Sps_ModeratorMatch(UserID, MatchID) VALUES ('$uid', '$gameID')";
-
-  // $resultInsert =  $conn->query($createGame);
-  $resultInsert2 =  $conn->query($addPlayer);
-  $resultInsert3 =  $conn->query($addModerator);
-
-
   header('Location: mygames.php');
-
 
 ?>
