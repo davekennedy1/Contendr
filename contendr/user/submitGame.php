@@ -7,12 +7,93 @@
   $uid = $_SESSION['13072064_contenderUID'];
   include('../conn.php');
 
+  $sportType = "SELECT Sps_SportType.SportTypeID, Sps_SportType.SportTypeName FROM Sps_SportType";
+  $sportTypeResult = $conn->query($sportType);
+  $sportTypeNum = $sportTypeResult->num_rows;
+
+  $indoorID;
+  $outdoorID;
+
+  $gameType = "SELECT Sps_GameType.GameTypeID, Sps_GameType.GameTypeName FROM Sps_GameType";
+  $gameTypeResult = $conn->query($gameType);
+  $gameTypeNum = $gameTypeResult->num_rows;
+
+  $privateID;
+  $publicID;
+
+  $matchID = $conn->real_escape_string(trim($_POST['matchID']));
+  $public = $conn->real_escape_string(trim($_POST['public']));
+  $private = $conn->real_escape_string(trim($_POST['private']));
+  $publicOrPrivate;
+
+  if (!$gameTypeResult) {
+      echo $conn->error;
+  } else {
+      while ($row = $gameTypeResult->fetch_assoc()) {
+        $gameTypeID = $row['GameTypeID'];
+        $gameTypeName = $row['GameTypeName'];
+        if($gameTypeName == 'Private') {
+          $privateID = $gameTypeID;
+        } else if ($gameTypeName == 'Public'){
+          $publicID = $gameTypeID;
+        }
+      }
+  }
+
+  if($private == 'Private'){
+    $publicOrPrivate = $privateID;
+  } else {
+    $publicOrPrivate = $publicID;
+  }
+
   $venue = $conn->real_escape_string(trim($_POST['venue']));
   $indoorOutdoor = $conn->real_escape_string(trim($_POST['indoorOutdoor']));
-  if($indoorOutdoor == 'Indoor') {
-    $indoorOutdoor = 3;
+
+  if (!$sportTypeResult) {
+      echo $conn->error;
   } else {
-    $indoorOutdoor = 4;
+      while ($row = $sportTypeResult->fetch_assoc()) {
+        $sportTypeID = $row['SportTypeID'];
+        $sportTypeName = $row['SportTypeName'];
+        if($sportTypeName == 'Indoor') {
+          $indoorID = $sportTypeID;
+        } else if ($sportTypeName == 'Outdoor'){
+          $outdoorID = $sportTypeID;
+        }
+      }
+  }
+
+  if($indoorOutdoor == 'Indoor') {
+    $indoorOutdoor = $indoorID;
+  } else {
+    $indoorOutdoor = $outdoorID;
+  }
+
+  $matchType = "SELECT Sps_MatchType.MatchTypeID, Sps_MatchType.MatchTypeName FROM Sps_MatchType";
+  $matchTypeResult = $conn->query($matchType);
+  $matchTypeNum = $matchTypeResult->num_rows;
+  $teamGameID;
+  $individualsGameID;
+
+  if (!$matchTypeResult) {
+      echo $conn->error;
+  } else {
+      while ($row = $matchTypeResult->fetch_assoc()) {
+        $matchTypeID = $row['MatchTypeID'];
+        $matchTypeName = $row['MatchTypeName'];
+        if($matchTypeName == 'Team game') {
+          $teamGameID = $matchTypeID;
+        } else if ($matchTypeName == 'Individuals game'){
+          $individualsGameID = $matchTypeID;
+        }
+      }
+  }
+
+  $minPlayers = $conn->real_escape_string(trim($_POST['minPlayers']));
+  if($minPlayers > 2) {
+    $matchType = $teamGameID;
+  } else {
+    $matchType = $individualsGameID;
   }
   $sport = $conn->real_escape_string(trim($_POST['sport']));
   $difficulty = $conn->real_escape_string(trim($_POST['difficulty']));
@@ -21,23 +102,11 @@
   $date = $date.$startTime;
   $dateChange=strtotime($date);
   $matchDateTime = date('Y-m-d H:i:s',$dateChange);
-  $public = $conn->real_escape_string(trim($_POST['public']));
-  $private = $conn->real_escape_string(trim($_POST['private']));
-  $publicOrPrivate;
-  if($private){
-    $publicOrPrivate = 3;
-  } else {
-    $publicOrPrivate = 4;
-  }
+
   $gameName = $conn->real_escape_string(trim($_POST['gameName']));
   $cost = $conn->real_escape_string(trim($_POST['cost']));
   $maxPlayers = $conn->real_escape_string(trim($_POST['maxPlayers']));
-  $minPlayers = $conn->real_escape_string(trim($_POST['minPlayers']));
-  if($minPlayers > 2) {
-    $matchType = 3;
-  } else {
-    $matchType = 4;
-  }
+
   $status = $conn->real_escape_string(trim($_POST['status']));
   $frequency = $conn->real_escape_string(trim($_POST['frequency']));
   $end = $conn->real_escape_string(trim($_POST['endTime']));

@@ -187,7 +187,12 @@ include("../conn.php");
           <br>
           ";
           if($moderator == 1) {
-            echo"<div class='row'><div class='col'><button type='button' class='btn btn-sm btn-secondary' disabled id='js-moderatorButton'>You are a Moderator</button></div></div>";
+            echo"
+              <div class='row'>
+                <div class='col'>
+                  <button type='button' class='btn btn-sm btn-secondary' disabled id='js-moderatorButton'>Moderator: $sessionUser</button>
+                </div>
+              </div>";
           }
           echo"
           <div class='row'>
@@ -215,13 +220,23 @@ include("../conn.php");
                 <input type='hidden' value='0' name='joinLeaveGame'>
                 <input type='hidden' value='$matchID' name='matchID'>
                 <input type='hidden' value='$matchName' name='matchName'>
-                <button type='submit' class='btn btn-sm btn-warning' id='js-leaveButton'>Leave Game</button>
+                <button type='submit' class='btn btn-sm btn-info' id='js-leaveButton'>Leave Game</button>
               </form>
                 ";
                   }
-
                   echo"
             </div>
+            ";
+            if($moderator == 1) {
+              echo"
+            <div class='col'>
+            <a href='editgame.php?updateId=$matchID'>
+              <button type='button' class='btn btn-sm btn-warning' id='js-moderatorButton'>Edit Game</button>
+              </a>
+            </div>
+            ";
+            }
+            echo"
           </div>
 
           <!-- Modal -->
@@ -245,7 +260,6 @@ include("../conn.php");
                       <input type='hidden' value='$matchName' name='matchName'>
                       <button type='submit' class='btn btn-info'>Join Game</button>
                     </form>
-
                   </div>
                 </div>
               </div>
