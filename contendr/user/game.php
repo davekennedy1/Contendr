@@ -14,6 +14,14 @@ include("../conn.php");
                      WHERE Sps_ModeratorMatch.MatchID = $matchID
                      AND Sps_User.UserID = $uid) = $uid, 1, 0) AS Moderator"; /* Return 1 if player is a moderator of this game else 0 */
 
+    $teamsPicked = "SELECT Sps_Match.TeamsSet FROM Sps_Match
+                    WHERE Sps_Match.MatchID = $matchID"; /* Will be 1 if teams have been picked */
+
+    $teamsPickedBy = "SELECT Sps_Match.TeamsSetByUserID, Sps_User.Name FROM Sps_Match
+                      INNER JOIN Sps_User
+                      ON Sps_Match.TeamsSetByUserID = Sps_User.UserID
+                      WHERE Sps_Match.MatchID =$matchID"; /* will be either a user ID and name or null */
+
     $playerRead = "SELECT @registeredPlayer := IF((SELECT Sps_PlayersMatch.UserID FROM Sps_PlayersMatch INNER JOIN Sps_User
                   On Sps_PlayersMatch.UserID = Sps_User.UserID
                   WHERE Sps_PlayersMatch.MatchID = $matchID
@@ -26,11 +34,26 @@ include("../conn.php");
                 WHERE Sps_Match.MatchID = $matchID) < (SELECT Sps_Match.MaxPlayers FROM Sps_Match WHERE Sps_Match.MatchID = $matchID), 1, 0) AS AvailableSlot";   /* Return 1 if theres an availab;e slot in this game*/
 
     $moderatorResult = $conn->query($moderatorRead);
+    $teamsPickedResult = $conn->query($teamsPicked);
+    $teamsPickedByResult = $conn->query($teamsPickedBy);
     $currentPlayersResult = $conn->query($playerRead);
     $availableSlotResult = $conn->query($slotRead);
     $moderator = 0;
+    $teamsLocked = 0;
+    $teamsLockedByID = null;
+    $teamsLockedByName = null;
     $regPlayer = 0;
     $availableSlot = 0;
+
+    while ($row = $teamsPickedResult->fetch_assoc()) {
+        $teamsLocked = $row['TeamsSet'];
+    };
+
+    while ($row = $teamsPickedByResult->fetch_assoc()) {
+        $teamsLockedByID = $row['TeamsSetByUserID'];
+        $teamsLockedByName = $row['Name'];
+
+    };
 
     $read = "SELECT
              Sps_Match.MatchID, Sps_Match.SportID, Sps_Match.MatchImage, Sps_Match.MatchDateTime, Sps_Match.MatchName, Sps_Match.Cost, Sps_Match.MaxPlayers, Sps_Match.MinPlayers, Sps_Match.MatchEndTime, Sps_Venue.VenueName, Sps_Venue.Pitch, Sps_Venue.Room, Sps_Venue.Court, Sps_Venue.TableBooked, Sps_Venue.ParkingDescription, Sps_SportType.SportTypeName, Sps_Sport.SportName, Sps_Sport.SportDescription, Sps_ProficiencyLevel.ProficiencyLevelName, Sps_ProficiencyLevel.ProficiencyLevelDescription,
@@ -191,8 +214,22 @@ include("../conn.php");
               <div class='row'>
                 <div class='col'>
                   <button type='button' class='btn btn-sm btn-secondary' disabled id='js-moderatorButton'>Moderator: $sessionUser</button>
+            ";
+                  if($teamsLocked != 1) {
+                    echo"
+                    <a href='./teams/pickteams.php'>
+                      <button type='button' class='btn btn-sm btn-info'>Pick Teams</button>
+                    </a>
+                    ";
+                  } else {
+                    echo"
+                      <button type='button' class='btn btn-sm btn-info' disabled>Teams Picked By: $teamsLockedByName</button>
+                    ";
+                  }
+                  echo"
                 </div>
-              </div>";
+              </div>
+                  ";
           }
           echo"
           <div class='row'>
