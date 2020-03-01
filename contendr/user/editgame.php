@@ -389,7 +389,7 @@ $venuesNum = $venuesResult->num_rows;
 </div>
   <div class="form-row">
     <div class="form-group col-md-3 bottomPadding topPadding" id="footerText">
-      <button type="submit" id="submitButton" class="btn btn-primary">Edit Game</button>
+      <button type="submit" id="submitButton" class="btn btn-primary">Update Game</button>
       </form>
       <button class="btn btn-danger" id='js-deleteButton' data-toggle='modal' data-target='#deleteGameModal'>Delete Game</button>
     </div>

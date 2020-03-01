@@ -85,6 +85,78 @@
   margin-right: 20%;
 }
 
+/*pick teams page */
+.textLeft {
+  text-align: left;
+}
+
+.textRight {
+  text-align: right;
+}
+
+.iconWidth {
+  width: 25px;
+}
+
+.tableNameWidth {
+  min-width: 100px;
+  max-width: 100px;
+}
+
+.teamMemberText {
+  font-size: small;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.teamBody {
+  position: relative;
+}
+
+.team2List {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.tableIconLeftSide {
+
+}
+/*.team1 {*/
+  /*text-align: left;*/
+/*}*/
+
+/*.team2 {*/
+  /*text-align: right;*/
+/*}*/
+
+/*.team2Input {*/
+  /*text-align: right;*/
+/*}*/
+
+.listVisible {
+  visibility: hidden;
+}
+
+/*.teamMembersSize {*/
+  /*font-size: small;*/
+/*}*/
+
+/*.memberName {*/
+  /*white-space: nowrap;*/
+  /*width: 10px;*/
+  /*overflow: hidden;*/
+  /*text-overflow: ellipsis;*/
+/*}*/
+
+/*.switchIcon {*/
+  /*right: 4px;*/
+  /*vertical-align: middle;*/
+/*}*/
+
+
+
 /*index page*/
 .indexImage{
   width: 100%;
@@ -421,5 +493,10 @@
     .nav-link {
         position: relative;
         font-size: 20px;
+    }
+
+  /*Pick Teams page*/
+    .teamMembersSize {
+      font-size: medium;
     }
 }

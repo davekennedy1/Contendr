@@ -217,7 +217,8 @@ include("../conn.php");
             ";
                   if($teamsLocked != 1) {
                     echo"
-                    <a href='./teams/pickteams.php'>
+
+                    <a href='pickteams.php?gameid=$matchID'>
                       <button type='button' class='btn btn-sm btn-info'>Pick Teams</button>
                     </a>
                     ";

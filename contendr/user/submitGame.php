@@ -121,12 +121,15 @@
   }
 
   $addPlayer = "INSERT INTO Sps_PlayersMatch(UserID, MatchID) VALUES ('$uid', '$gameID')";
-
+  $initialiseTeam1 = "INSERT INTO SPS_Teams(TeamName, MatchID) VALUES ('Team 1', '$gameID')";
+  $initialiseTeam2 = "INSERT INTO SPS_Teams(TeamName, MatchID) VALUES ('Team 2', '$gameID')";
   $addModerator = "INSERT INTO Sps_ModeratorMatch(UserID, MatchID) VALUES ('$uid', '$gameID')";
 
   // $resultInsert =  $conn->query($createGame);
   $resultInsert2 =  $conn->query($addPlayer);
   $resultInsert3 =  $conn->query($addModerator);
+  $resultInsert4 =  $conn->query($initialiseTeam1);
+  $resultInsert5 =  $conn->query($initialiseTeam2);
 
 
   header('Location: mygames.php');
